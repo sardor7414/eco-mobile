@@ -1,0 +1,29 @@
+# Python cache va build fayllari
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+
+# Virtual environment
+.venv/
+venv/
+ENV/
+env/
+
+# Environment variables
+.env
+
+# SQLite database
+db.sqlite3
+
+# Django files
+media/
+staticfiles/
+
+# VSCode va boshqa IDE configlari
+.vscode/
+.idea/
+
+# Logs
+*.log

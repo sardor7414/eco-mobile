@@ -12,3 +12,4 @@ djangorestframework~=3.16.0
 PyJWT~=2.10.1
 dj-database-url
 django-jazzmin
+djangorestframework-simplejwt

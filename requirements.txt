@@ -10,3 +10,4 @@ whitenoise~=6.9.0
 django-environ
 djangorestframework~=3.16.0
 PyJWT~=2.10.1
+dj-database-url

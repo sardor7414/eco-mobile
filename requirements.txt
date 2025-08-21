@@ -13,3 +13,4 @@ PyJWT~=2.10.1
 dj-database-url
 django-jazzmin
 djangorestframework-simplejwt
+psycopg2-binary

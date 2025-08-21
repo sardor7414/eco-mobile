@@ -15,6 +15,8 @@ class User(AbstractBaseUser, PermissionsMixin, DefaultAbstract):
     first_name = models.CharField(max_length=256)
     last_name = models.CharField(max_length=256)
     phone = models.CharField(max_length=13, unique=True)
+    reset_code = models.CharField(max_length=6, blank=True, null=True)
+    is_reset_verified = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
 

@@ -1,5 +1,5 @@
 import random
-
+import string
 from django.contrib.auth import get_user_model
 from rest_framework import generics
 from rest_framework.response import Response
@@ -48,6 +48,23 @@ class VerifyResetCodeView(APIView):
         return Response({"message": "Kod tasdiqlandi"})
 
 
+# class ResetPasswordView(APIView):
+#     def post(self, request):
+#         phone = request.data.get("phone")
+#         new_password = request.data.get("new_password")
+#
+#         try:
+#             user = User.objects.get(phone=phone, is_reset_verified=True)
+#         except User.DoesNotExist:
+#             return Response({"error": "Avval kodni tasdiqlang"}, status=status.HTTP_400_BAD_REQUEST)
+#
+#         user.set_password(new_password)
+#         user.reset_code = None
+#         user.is_reset_verified = False
+#         user.save()
+#
+#         return Response({"message": "Parol muvaffaqiyatli o‘zgartirildi"})
+
 class ResetPasswordView(APIView):
     def post(self, request):
         phone = request.data.get("phone")
@@ -58,13 +75,19 @@ class ResetPasswordView(APIView):
         except User.DoesNotExist:
             return Response({"error": "Avval kodni tasdiqlang"}, status=status.HTTP_400_BAD_REQUEST)
 
+        # Agar parol yuborilmagan bo‘lsa, random parol generatsiya qilamiz
+        if not new_password:
+            new_password = ''.join(random.choices(string.ascii_letters + string.digits, k=8))
+
         user.set_password(new_password)
         user.reset_code = None
         user.is_reset_verified = False
         user.save()
 
-        return Response({"message": "Parol muvaffaqiyatli o‘zgartirildi"})
-
+        return Response({
+            "message": "Parol muvaffaqiyatli o‘zgartirildi",
+            "new_password": new_password
+        })
 
 class RegisterView(generics.CreateAPIView):
     queryset = User.objects.all()

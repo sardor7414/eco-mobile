@@ -22,4 +22,5 @@ class MaterialContactSerializer(serializers.ModelSerializer):
 class MaterialMapSerializer(serializers.ModelSerializer):
     class Meta:
         model = Material
-        fields = ['id', 'type', 'quantity', 'latitude', 'longitude']
+        # fields = ['id', 'type', 'quantity', 'latitude', 'longitude']
+        fields = '__all__'

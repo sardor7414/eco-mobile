@@ -14,6 +14,7 @@ class MaterialListCreateAPIView(APIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request):
+        # Faqat login qilgan user’ning materiallari
         materials = Material.objects.filter(user=request.user)
         serializer = MaterialSerializer(materials, many=True)
         return Response(serializer.data)
@@ -21,7 +22,8 @@ class MaterialListCreateAPIView(APIView):
     def post(self, request):
         serializer = MaterialSerializer(data=request.data)
         if serializer.is_valid():
-            serializer.save()
+            # user ni request.body’dan emas, token’dan olish
+            serializer.save(user=request.user)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
